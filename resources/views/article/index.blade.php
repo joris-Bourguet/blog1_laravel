@@ -15,10 +15,21 @@
 </style>
 @extends('layout.index')
 
+@section('hero')
+    @include('partials.hero')
+@endsection
+
+@if (session('success'))
+    <div class="alert alert-secondary" role="alert">
+        {{ session('success') }}
+    </div>
+@endif
+
 @section('content') 
     <div class="album py-5 bg-light">
         <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <h2 class="text-center pb-4">Dernier articles</h2>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 pb-4">
             @foreach ($articles as $article)
                     <div class="col">
                         <div class="card shadow-sm">
@@ -31,15 +42,16 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                     <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    <a href="{{ route('article.update', ["id" => $article->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
                                     </div>
-                                    <small class="text-muted">9 mins</small>
+                                    <small class="text-muted">{{ $article->created_at->format('d/m/Y') }}</small>
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
+            {{ $articles->links('pagination::bootstrap-4') }}
         </div>
     </div>
 @endsection

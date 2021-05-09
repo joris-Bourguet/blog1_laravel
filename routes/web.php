@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Models\Article;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +15,15 @@ use App\Http\Controllers\ArticleController;
 |
 */
 
-Route::get('/', [ArticleController::class, 'index']);
+
+// Article routing 
+Route::get('/', [ArticleController::class, 'index'])->name('article.index');
+Route::get('article/create', [ArticleController::class, 'create'])->name('article.create');
+Route::post('article/store', [ArticleController::class, 'store'])->name('article.store');
+Route::get('article/{id}', [ArticleController::class, 'show'])->name('article.show');
+Route::get('article/{id}/edit', [ArticleController::class, 'edit'])->name('article.update');
+
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

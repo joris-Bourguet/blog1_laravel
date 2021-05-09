@@ -14,9 +14,11 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $article = Article::all();
-                
-        return view('article.index')->with('articles', $article);
+        $articles = Article::orderByDesc('created_at')->paginate(6);
+
+        return view('article.index', [
+            'articles' => $articles
+        ]);
     }
 
     /**
@@ -26,7 +28,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('article.create');
     }
 
     /**
@@ -37,7 +39,14 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $article = Article::create([
+            'title' => $request->title,
+            'slug' => create_slug($request->title),
+            'shortdescription' => $request->shortDesc,
+            'description' => $request->description
+        ]);
+        
+        return redirect()->route('article.index')->with('success', 'article ajouté');
     }
 
     /**
@@ -46,9 +55,12 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show($id)
     {
-        //
+        $article = Article::where('id', $id)->firstOrFail();
+
+        return view('article.show')->with('article', $article);
+        
     }
 
     /**
@@ -57,9 +69,11 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit($article)
     {
-        //
+        $article = Article::where('id', $article)->firstOrFail();
+
+        return view('article.show')->with('article', $article);
     }
 
     /**
