@@ -45,7 +45,7 @@ class ArticleController extends Controller
             'shortdescription' => $request->shortDesc,
             'description' => $request->description
         ]);
-        
+
         return redirect()->route('article.index')->with('success', 'article ajouté');
     }
 
@@ -55,12 +55,12 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $article = Article::where('id', $id)->firstOrFail();
+        $article = Article::where('slug', $slug)->firstOrFail();
 
         return view('article.show')->with('article', $article);
-        
+
     }
 
     /**
@@ -73,7 +73,7 @@ class ArticleController extends Controller
     {
         $article = Article::where('id', $article)->firstOrFail();
 
-        return view('article.show')->with('article', $article);
+        return view('article.edit')->with('article', $article);
     }
 
     /**
@@ -85,7 +85,23 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $validator = $request->validate([
+            'id' => 'required',
+            'title' => 'required',
+            'description' => 'required',
+            'shortDescription' => 'required',
+        ]);
+
+        $article = Article::find($request->id)
+        ->update([
+            'title' => $request->title,
+            'slug' => create_slug($request->title),
+            'shortdescription' => $request->shortDescription,
+            'description' => $request->description,
+        ]);
+
+        return redirect()->route('article.show', ['slug' => Article::find($request->id)->slug]);
+        // return view('article.show', ["slug" => $request->slug])->with('article', Article::find($request->id));
     }
 
     /**

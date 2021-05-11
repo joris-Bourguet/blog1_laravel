@@ -1,18 +1,3 @@
-<style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-</style>
 @extends('layout.index')
 
 @section('hero')
@@ -25,7 +10,7 @@
     </div>
 @endif
 
-@section('content') 
+@section('content')
     <div class="album py-5 bg-light">
         <div class="container">
             <h2 class="text-center pb-4">Dernier articles</h2>
@@ -41,8 +26,8 @@
                                 <p class="card-text">{{ $article->shortdescription }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                    <a href="{{ route('article.update', ["id" => $article->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                                    <a href="{{ route('article.show', ["slug" => $article->slug]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Voir</button></a>
+                                    <a href="{{ route('article.edit', ["id" => $article->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Modifier</button></a>
                                     </div>
                                     <small class="text-muted">{{ $article->created_at->format('d/m/Y') }}</small>
                                 </div>

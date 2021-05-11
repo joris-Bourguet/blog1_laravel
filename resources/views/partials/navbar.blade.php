@@ -2,41 +2,15 @@
   <div class="px-3 py-2 bg-dark text-white">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-        </a>
-
         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-          <li>
-            <a href="#" class="nav-link text-secondary">
-              <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"/></svg>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"/></svg>
-              Dashboard
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"/></svg>
-              Orders
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
-              Products
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>
-              Customers
-            </a>
-          </li>
+            @foreach ( App\Models\Menu::where('is_active', '1')->get() as $menu)
+                <li>
+                    <a href="{{ $menu->slug }}" class="nav-link text-secondary">
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24"></svg>
+                        {{ $menu->title }}
+                    </a>
+                </li>
+            @endforeach
         </ul>
       </div>
     </div>
@@ -48,8 +22,8 @@
       </form>
 
       <div class="text-end">
-        <button type="button" class="btn btn-light text-dark me-2">Login</button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
+        <a href="{{ route('connexion') }}"><button type="button" class="btn btn-light text-dark me-2">{{ __('connexion') }}</button></a>
+        <a href="{{ route('inscription') }}"><button type="button" class="btn btn-primary">{{ __('inscription') }}</button></a>
       </div>
     </div>
   </div>

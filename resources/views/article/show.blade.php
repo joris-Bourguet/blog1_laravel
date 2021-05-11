@@ -9,16 +9,12 @@
                 <div class="card shadow-sm">
                     <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
                         <title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/>
-                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ $article->title }}</text>
+                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ $article->shortdescription }}</text>
                     </svg>
                     <div class="card-body">
-                        <p class="card-text">{{ $article->shortdescription }}</p>
+                        <p class="card-text">{{ $article->description }}</p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                            <a href="{{ route('article.update', ["id" => $article->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
-                            </div>
-                            <small class="text-muted">{{ $article->created_at->format('d/m/Y') }}</small>
+                            <small class="text-muted">{{ $article->created_at->format('h:i - d/m/Y') }}</small>
                         </div>
                     </div>
                 </div>
