@@ -24,7 +24,7 @@ class ArticleFactory extends Factory
 
         return [
             'title' =>  $this->faker->sentence('3', true),
-            'slug' => $this->faker->slug(3, true),
+            'slug' => create_slug($this->faker->sentence('3', true)),
             'shortdescription' => $this->faker->sentence(),
             'description' => $this->faker->paragraph('4', true),
             'image' => $this->faker->imageUrl()

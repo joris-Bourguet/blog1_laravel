@@ -13,6 +13,7 @@
                     </svg>
                     <div class="card-body">
                         <p class="card-text">{{ $article->description }}</p>
+                        <a href="{{ route('article.edit', ["id" => $article->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Modifier</button></a>
                         <div class="d-flex justify-content-between align-items-center">
                             <small class="text-muted">{{ $article->created_at->format('h:i - d/m/Y') }}</small>
                         </div>

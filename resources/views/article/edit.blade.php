@@ -2,6 +2,7 @@
 
 @section('content')
     <section class="container">
+        <h1 class="text-center">Modification de l'article </h1>
         <form action="{{ route('article.update') }}" method="post">
 
             @method('PUT')
@@ -26,8 +27,8 @@
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description : </label>
-                <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" value="{{ $article->description }}">
-                @error('description')
+                <textarea name="description" id="description" cols="30" rows="10" class="form-control @error('description') is-invalid @enderror">{{ $article->description }}</textarea>
+                    @error('description')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
